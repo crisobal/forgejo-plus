@@ -1,0 +1,40 @@
+FROM codeberg.org/forgejo/forgejo:14.0.3-rootless
+LABEL maintainer="crispin@tschirky.ch" \
+      org.opencontainers.image.base.name="docker.io/gitea/gitea" \            
+      org.opencontainers.image.licenses="GPL-3.0-or-later" \
+      org.opencontainers.image.ref.name="1.23.7-rootless" \      
+      org.opencontainers.image.vendor="fhr.ch" \
+      org.opencontainers.image.title="Forgejo-Plus. Beyond coding. We forge." \
+      org.opencontainers.image.description="Forgejo is a self-hosted lightweight software forge. With asciidoctor and pandoc addon"
+
+
+EXPOSE 2222 3000
+USER root
+
+RUN apk --no-cache add \
+    asciidoctor \
+    pandoc \
+    && rm -rf /var/cache/apk/*
+
+
+VOLUME ["/data"]
+
+COPY docker/app.ini /etc/templates/app.ini
+RUN chmod 644 /etc/templates/app.ini
+
+USER 1000:1000
+
+ENV GITEA_WORK_DIR=/var/lib/gitea
+ENV GITEA_CUSTOM=/var/lib/gitea/custom
+ENV GITEA_TEMP=/tmp/gitea
+ENV TMPDIR=/tmp/gitea
+
+ENV GITEA_APP_INI=${GITEA_CUSTOM}/conf/app.ini
+ENV HOME="/var/lib/gitea/git"
+
+VOLUME ["/var/lib/gitea", "/etc/gitea"]
+WORKDIR /var/lib/gitea
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/usr/local/bin/docker-entrypoint.sh"]
+CMD []
+
