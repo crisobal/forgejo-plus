@@ -14,7 +14,7 @@ USER root
 RUN apk --no-cache add \
     asciidoctor \
     pandoc \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/apk/* && rm /var/log/*
 
 
 VOLUME ["/data"]
