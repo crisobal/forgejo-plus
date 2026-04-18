@@ -1,8 +1,8 @@
-FROM codeberg.org/forgejo/forgejo:14.0.4-rootless
+FROM codeberg.org/forgejo/forgejo:15.0.0-rootless
 LABEL maintainer="crispin@tschirky.ch" \
       org.opencontainers.image.base.name="docker.io/gitea/gitea" \            
       org.opencontainers.image.licenses="GPL-3.0-or-later" \
-      org.opencontainers.image.ref.name="1.23.7-rootless" \      
+      org.opencontainers.image.ref.name="15.00.0-rootless" \      
       org.opencontainers.image.vendor="fhr.ch" \
       org.opencontainers.image.title="Forgejo-Plus. Beyond coding. We forge." \
       org.opencontainers.image.description="Forgejo is a self-hosted lightweight software forge. With asciidoctor and pandoc addon"
